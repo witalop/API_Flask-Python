@@ -8,7 +8,7 @@ user = '{"name":"Witalo Pietler","email":"witalopietler@gmail.com","birth_date":
 user = json.loads(user)
 if len(users)!=0:
     if user[email] in email_list:
-        print ('Este endereço de email já foi cadastrado!')
+        print ('ERRO: Este endereço de email já foi cadastrado!')
 else:
     user['id'] = int(max(users))+1
     users.append(user)

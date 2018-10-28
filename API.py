@@ -23,13 +23,13 @@ def postJson():
         user = request.get_data(as_text=True)
         user = json.loads(user)
         if user['email'] in email_list:
-            return 'Este endereço de email já foi cadastrado!'
+            return 'ERRO: Este endereço de email já foi cadastrado!'
         user['id'] = contador +1
         contador =+ 1
         email_list.append(user['email'])
         users.append(user)
         return 'id: '+ str(user['id'])
-    #teste com:  curl -X POST --data '{"name":"Witalo Pietler","email":"witalopietler@gmail.com","birth_date":{"dia":28,"mes":1,"ano":1999}}' "http://127.0.0.1:5000/api/v1/user"
+    #teste com:  curl -X POST --data '{"name":"Witalo Pietler","email":"witalopietler@gmail.com","birth_date":"28/01/1999"}' "http://127.0.0.1:5000/api/v1/user"
 
 @app.route('/api/v1/user')
 def getLimit(): 
@@ -51,5 +51,19 @@ def getLimit():
             out = out + '\n'
         return out
         
+@app.route('/api/v1/user/<int:userid>', methods=['GET', 'DELETE'])
+def userId(userid):
+    global users
+    if request.method == 'GET':
+        for i in users:
+            if userid == i['id']:
+                return str_user(i)
+        return 'ERRO: Este ID não existe!'
+    if request.method == 'DELETE':
+        for i in users:
+            if userid == i['id']:
+                users.remove(i)
+                return 'Usuário deletado!'
+        return 'ERRO: Este ID não existe'
 
 app.run(use_reloader=True)
