@@ -23,7 +23,7 @@ class service(object):
             if user['email'] in self.db.emails:
                 return 'ERRO: Este endereço de email já foi cadastrado!'
             user['id'] = self.db.counter +1
-            self.bd.counter=+ 1
+            self.db.counter=+ 1
             self.db.emails.append(user['email'])
             self.db.users.append(user)
             return 'id: '+ str(user['id'])
@@ -49,8 +49,8 @@ class service(object):
             return 'ERRO: Este ID não existe!'
 
         if request.method == 'DELETE':
-            for i in users:
-                if userid == i['id']:
+            for i in self.db.users:
+                if userId == i['id']:
                     self.db.users.remove(i)
                 return 'Usuário deletado!'
             return 'ERRO: Este ID não existe'
