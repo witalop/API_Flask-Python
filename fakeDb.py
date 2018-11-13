@@ -9,8 +9,9 @@ class fakeDB(object):
     def addUser(self, user):
         if user['email'] in self.emails:
             return 'ERRO: Este endereço de email já foi cadastrado!'
+
         user['id'] = self.counter +1
-        self.counter =+ 1
+        self.counter = self.counter + 1
         self.emails.append(user['email'])
         self.users.append(user)
         return 'id: '+ str(user['id'])
