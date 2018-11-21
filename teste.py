@@ -1,17 +1,4 @@
-import json
+import sys
 
-users = []
-
-email_list=[i[email] for i in users]
-user = '{"name":"Witalo Pietler","email":"witalopietler@gmail.com","birth_date":{"dia":28,"mes":1,"ano":1999}}'
-
-user = json.loads(user)
-if len(users)!=0:
-    if user[email] in email_list:
-        print ('ERRO: Este endereço de email já foi cadastrado!')
-else:
-    user['id'] = int(max(users))+1
-    users.append(user)
-    print ('id: '+ str(user['id']))
-
-print(users)
+args = {'command':sys.argv[1], 'args':dict([arg.split('=', maxsplit=1) for arg in sys.argv[2:]])}
+print(args)
